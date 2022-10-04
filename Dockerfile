@@ -11,5 +11,8 @@ RUN apt -q update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* 2>/dev/null
 
-COPY nfs-test-trace.sh /usr/local/bin/
 COPY nfs-test-trace.bpf /usr/local/bin/
+
+COPY nfs-test-trace.sh /usr/local/bin/
+
+CMD /usr/local/bin/nfs-test-trace.sh
