@@ -4,11 +4,14 @@ BEGIN
         printf("Tracing nfs syscalls... Hit Ctrl-C to end.\n");
 }
 
-# Unavailable on GKE nodes
-#kprobe:nfsd4_decode_test_stateid,
-#kprobe:nfsd4_encode_test_stateid,
-#kprobe:nfsd4_get_writestateid,
-#kprobe:nfsd4_test_stateid
+/*
+Unavailable on GKE nodes
+========================
+kprobe:nfsd4_decode_test_stateid,
+kprobe:nfsd4_encode_test_stateid,
+kprobe:nfsd4_get_writestateid,
+kprobe:nfsd4_test_stateid
+*/
 
 kprobe:__traceiter_nfs4_close_stateid_update_wait,
 kprobe:__traceiter_nfs4_open_stateid_update,
