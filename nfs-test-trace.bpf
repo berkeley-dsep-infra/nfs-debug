@@ -4,10 +4,44 @@ BEGIN
         printf("Tracing nfs syscalls... Hit Ctrl-C to end.\n");
 }
 
-kprobe:nfsd4_decode_test_stateid,
-kprobe:nfsd4_encode_test_stateid,
-kprobe:nfsd4_get_writestateid,
-kprobe:nfsd4_test_stateid
+# Unavailable on GKE nodes
+#kprobe:nfsd4_decode_test_stateid,
+#kprobe:nfsd4_encode_test_stateid,
+#kprobe:nfsd4_get_writestateid,
+#kprobe:nfsd4_test_stateid
+
+kprobe:__traceiter_nfs4_close_stateid_update_wait,
+kprobe:__traceiter_nfs4_open_stateid_update,
+kprobe:__traceiter_nfs4_open_stateid_update_wait,
+kprobe:__traceiter_nfs4_test_delegation_stateid,
+kprobe:__traceiter_nfs4_test_lock_stateid,
+kprobe:__traceiter_nfs4_test_open_stateid,
+kprobe:nfs40_test_and_free_expired_stateid,
+kprobe:nfs41_free_stateid,
+kprobe:nfs41_free_stateid_done,
+kprobe:nfs41_free_stateid_prepare,
+kprobe:nfs41_free_stateid_release,
+kprobe:nfs41_match_stateid,
+kprobe:nfs41_test_and_free_expired_stateid,
+kprobe:nfs4_copy_delegation_stateid,
+kprobe:nfs4_copy_open_stateid,
+kprobe:nfs4_layout_refresh_old_stateid,
+kprobe:nfs4_match_stateid,
+kprobe:nfs4_refresh_delegation_stateid,
+kprobe:nfs4_schedule_stateid_recovery,
+kprobe:nfs4_select_rw_stateid,
+kprobe:nfs4_set_rw_stateid,
+kprobe:nfs4_xdr_dec_free_stateid,
+kprobe:nfs4_xdr_dec_test_stateid,
+kprobe:nfs4_xdr_enc_free_stateid,
+kprobe:nfs4_xdr_enc_test_stateid,
+kprobe:pnfs_mark_layout_stateid_invalid,
+kprobe:pnfs_set_layout_stateid,
+kprobe:update_open_stateid,
+kprobe:do_nfs4_mount,
+kprobe:nfs_file_open,
+kprobe:nfs_file_read,
+kprobe:nfs_file_write
 {
         @[pid, comm, func] = count();
 }
