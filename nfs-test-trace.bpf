@@ -1,0 +1,25 @@
+#!/usr/bin/bpftrace
+BEGIN
+{
+        printf("Tracing nfs syscalls... Hit Ctrl-C to end.\n");
+}
+
+kprobe:nfsd4_decode_test_stateid,
+kprobe:nfsd4_encode_test_stateid,
+kprobe:nfsd4_get_writestateid,
+kprobe:nfsd4_test_stateid
+{
+        @[pid, comm, func] = count();
+}
+
+interval:s:5
+{
+        time();
+        print(@);
+        clear(@);
+}
+
+END
+{
+        clear(@);
+}
